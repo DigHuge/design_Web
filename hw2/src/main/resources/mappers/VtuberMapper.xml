@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzh.mybatis.mapper.VtuberMapper">
+    <insert id="test_mybaits"> <!--测试增加功能 -->
+        insert into Test values (114514)
+    </insert>
+    <update id="test_update"> <!--测试修改功能 -->
+        update Test set test = 10086 where test=114514
+    </update>
+    <delete id="test_delete"> <!--测试删除功能 -->
+        delete from Test where test = 10086
+    </delete>
+    <!--
+        查询功能的标签必须设置resultType或者resultMap
+        resultType：设置默认的映射关系
+        resultMap：设置自定义的映射关系（字段名和表头不一样）
+    -->
+    <!--测试 -->
+    <select id="test_select" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select * from month_entirely where date = "2020-01"
+    </select>
+
+    <select id="test_select_list" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select date,income from month_entirely
+    </select>
+
+    <!--查询表 month_entirely 营收与日期 -->
+    <select id="getMEI" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select date,income from month_entirely ORDER BY date ASC;
+    </select>
+
+    <!--查询表 month_entirely 互动数与日期 -->
+    <select id="getMEP" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select date,participants from month_entirely ORDER BY date ASC;
+    </select>
+
+    <!--查询表 month_entirely 付费人数与日期 -->
+    <select id="getMEPay" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select date,pay_num from month_entirely ORDER BY date ASC;
+    </select>
+
+    <!--查询表 day 营收与日期 -->
+    <select id="get_dIncome" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select date,income from day ORDER BY date ASC;
+    </select>
+
+    <!--查询表 day 互动人数与日期 -->
+    <select id="get_dParticipants" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select date,participants from day ORDER BY date ASC;
+    </select>
+
+    <!--查询表 day 付费人数与日期 -->
+    <select id="get_dPay_num" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select date,pay_num from day ORDER BY date ASC;
+    </select>
+
+    <!--查询个人(名字) -->
+    <select id="query_Vname" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select * from v_info where name like concat ('%',#{Vname},'%');
+    </select>
+
+    <!--查询个人(uid) -->
+    <select id="query_Vuid" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select * from v_info where uid = #{Vuid};
+    </select>
+
+    <!--查询个人月数据by uid -->
+    <select id="query_Vall" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select * from month where uid = #{Vuid} ORDER BY date ASC;
+    </select>
+
+    <!--获取日期 -->
+    <select id="get_date" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select distinct date from month ORDER BY date ASC;
+    </select>
+
+    <select id="get_120" resultType="com.lzh.mybatis.pojo.Vtuber">
+        select * from V_data.TOP ORDER BY date ASC;
+    </select>
+</mapper>
